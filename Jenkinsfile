@@ -31,18 +31,19 @@ pipeline {
         stage('Stage 3') {
             steps {
                 echo 'Check No Parameters'
-
-                try{
-                    sbomStudio filePath: 'sboms/arduino-cli.json' //,
-                                // manufacturerId: 'Cybeats', 
-                                // pkgType: '-', 
-                                // sbomComponentName: '', 
-                                // sbomComponentNamespace: '', 
-                                // sbomComponentVersion: '', 
-                                // subType: 'application', 
-                                // supplierId: 'Cybeats'
-                }catch(err){
-                    echo err.getMessage()
+                script{
+                    try{
+                        sbomStudio filePath: 'sboms/arduino-cli.json' //,
+                                    // manufacturerId: 'Cybeats', 
+                                    // pkgType: '-', 
+                                    // sbomComponentName: '', 
+                                    // sbomComponentNamespace: '', 
+                                    // sbomComponentVersion: '', 
+                                    // subType: 'application', 
+                                    // supplierId: 'Cybeats'
+                    }catch(err){
+                        echo err.getMessage()
+                    }
                 }
             }
         }
