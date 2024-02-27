@@ -1,6 +1,9 @@
 #!/usr/bin/env groovy
 
 pipeline {
+    parameters { 
+        booleanParam(name: 'SBOM_STUDIO', defaultValue: true, description: 'Enable Cybeats SBOM Studio')
+    }
     agent any
     stages {
         stage('Stage 1') {
@@ -10,9 +13,18 @@ pipeline {
                 sh 'ls -al'
             }
         }
+        
         stage('Stage 2') {
             steps {
-                echo 'Hello world!'
+                echo 'Check General Functionality'
+                sbomStudio filePath: 'sboms/arduino-cli.json',
+                            manufacturerId: 'Cybeats', 
+                            pkgType: '-', 
+                            sbomComponentName: '', 
+                            sbomComponentNamespace: '', 
+                            sbomComponentVersion: '', 
+                            subType: 'application', 
+                            supplierId: 'Cybeats'
             }
         }
     }
