@@ -6,7 +6,7 @@ pipeline {
     }
     agent any
     stages {
-        stage('Stage 1') {
+        stage('Stage 0') {
             steps {
                 echo 'Testing Jenkins SBOM Studio Plugin'
                 sh 'pwd'
@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Stage 2') {
+        stage('Stage 1') {
             steps {
                 echo 'Check General Functionality'
                 sbomStudio filePath: 'sboms/arduino-cli.json',
@@ -25,36 +25,43 @@ pipeline {
                             sbomComponentVersion: '', 
                             subType: 'application', 
                             supplierId: 'Cybeats'
+                sh 'echo '
             }
         }
 
-        stage('Stage 3') {
+        stage('Stage 2') {
             steps {
                 echo 'Check No Parameters'
-                script{
-                    try{
-                        sbomStudio filePath: 'sboms/arduino-cli.json' //,
-                                    // manufacturerId: 'Cybeats', 
-                                    // pkgType: '-', 
-                                    // sbomComponentName: '', 
-                                    // sbomComponentNamespace: '', 
-                                    // sbomComponentVersion: '', 
-                                    // subType: 'application', 
-                                    // supplierId: 'Cybeats'
-                    }catch(err){
-                        echo err.getMessage()
-                    }
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){   
+                    sbomStudio filePath: 'sboms/arduino-cli.json' //,
+                                // manufacturerId: 'Cybeats', 
+                                // pkgType: '-', 
+                                // sbomComponentName: '', 
+                                // sbomComponentNamespace: '', 
+                                // sbomComponentVersion: '', 
+                                // subType: 'application', 
+                                // supplierId: 'Cybeats'   
                 }
             }
         }
 
-        stage('Stage 4') {
+        stage('Stage 3') {
             steps{
-                echo 'fourth stage'
+                echo 'Check Full Parameters'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){   
+                sbomStudio filePath: 'sboms/arduino-cli.json' //,
+                            manufacturerId: 'Cybeats', 
+                            pkgType: 'golang', 
+                            sbomComponentName: 'Arduino-CLI-Jenkins', 
+                            sbomComponentNamespace: 'com.arduino-cli-jenkins', 
+                            sbomComponentVersion: '1.0.0', 
+                            subType: 'application', 
+                            supplierId: 'Cybeats'   
+                }
             }
         }
 
-        stage('Stage 5'){
+        stage('Stage 4'){
             steps{
                 echo 'fifth'
             }
