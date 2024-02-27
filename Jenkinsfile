@@ -25,14 +25,14 @@ pipeline {
                             sbomComponentVersion: '', 
                             subType: 'application', 
                             supplierId: 'Cybeats'
-                sh 'echo '
+                sh 'echo $?'
             }
         }
 
         stage('Stage 2') {
             steps {
                 echo 'Check No Parameters'
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){   
+                catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS'){   
                     sbomStudio filePath: 'sboms/arduino-cli.json' //,
                                 // manufacturerId: 'Cybeats', 
                                 // pkgType: '-', 
@@ -40,7 +40,8 @@ pipeline {
                                 // sbomComponentNamespace: '', 
                                 // sbomComponentVersion: '', 
                                 // subType: 'application', 
-                                // supplierId: 'Cybeats'   
+                                // supplierId: 'Cybeats' 
+                    sh 'echo $?'  
                 }
             }
         }
@@ -48,7 +49,7 @@ pipeline {
         stage('Stage 3') {
             steps{
                 echo 'Check Full Parameters'
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){   
+                catchError(buildResult: 'SUCCESS', stageResult: 'SUCCESS'){   
                 sbomStudio filePath: 'sboms/arduino-cli.json',
                             manufacturerId: 'Cybeats', 
                             pkgType: 'golang', 
@@ -56,14 +57,24 @@ pipeline {
                             sbomComponentNamespace: 'com.arduino-cli-jenkins', 
                             sbomComponentVersion: '1.0.0', 
                             subType: 'application', 
-                            supplierId: 'Cybeats'   
+                            supplierId: 'Cybeats'
+                    sh 'echo $?'   
                 }
             }
         }
 
         stage('Stage 4'){
             steps{
-                echo 'fifth'
+                echo 'Check Invalid manufacturerId'
+                sbomStudio filePath: 'sboms/arduino-cli.json',
+                            manufacturerId: 'CybeatsNotTheRightInput', 
+                            pkgType: '-', 
+                            sbomComponentName: '', 
+                            sbomComponentNamespace: '', 
+                            sbomComponentVersion: '', 
+                            subType: 'application', 
+                            supplierId: 'Cybeats'
+                sh 'echo $?'
             }
         }
     }
