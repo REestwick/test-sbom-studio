@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo 'Check No Parameters'
 
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                try{
                     sbomStudio filePath: 'sboms/arduino-cli.json' //,
                                 // manufacturerId: 'Cybeats', 
                                 // pkgType: '-', 
@@ -41,8 +41,18 @@ pipeline {
                                 // sbomComponentVersion: '', 
                                 // subType: 'application', 
                                 // supplierId: 'Cybeats'
+                }catch(err){
+                    echo err.getMessage()
                 }
             }
+        }
+
+        stage('Stage 4') {
+            echo 'fourth stage'
+        }
+
+        stage('Stage 5'){
+            echo 'fifth'
         }
     }
 }
