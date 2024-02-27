@@ -48,11 +48,15 @@ pipeline {
         }
 
         stage('Stage 4') {
-            echo 'fourth stage'
+            steps{
+                echo 'fourth stage'
+            }
         }
 
         stage('Stage 5'){
-            echo 'fifth'
+            steps{
+                echo 'fifth'
+            }
         }
     }
 }
