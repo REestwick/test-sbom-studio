@@ -49,7 +49,7 @@ pipeline {
             steps{
                 echo 'Check Full Parameters'
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){   
-                sbomStudio filePath: 'sboms/arduino-cli.json' //,
+                sbomStudio filePath: 'sboms/arduino-cli.json',
                             manufacturerId: 'Cybeats', 
                             pkgType: 'golang', 
                             sbomComponentName: 'Arduino-CLI-Jenkins', 
