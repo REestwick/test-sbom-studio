@@ -13,7 +13,7 @@ pipeline {
                 sh 'ls -al'
             }
         }
-        
+
         stage('Stage 2') {
             steps {
                 echo 'Check General Functionality'
@@ -25,6 +25,23 @@ pipeline {
                             sbomComponentVersion: '', 
                             subType: 'application', 
                             supplierId: 'Cybeats'
+            }
+        }
+
+        stage('Stage 3') {
+            steps {
+                echo 'Check No Parameters'
+
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                    sbomStudio filePath: 'sboms/arduino-cli.json' //,
+                                // manufacturerId: 'Cybeats', 
+                                // pkgType: '-', 
+                                // sbomComponentName: '', 
+                                // sbomComponentNamespace: '', 
+                                // sbomComponentVersion: '', 
+                                // subType: 'application', 
+                                // supplierId: 'Cybeats'
+                }
             }
         }
     }
