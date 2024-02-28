@@ -201,15 +201,15 @@ pipeline {
 
         stage('Stage 13') {
             steps {
-                echo ''
+                echo 'Nonexistent file'
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                    sbomStudio filePath: 'sboms/arduino-cli.json',
+                    sbomStudio filePath: 'this-is-not-the-file-youre-looking-for.json',
                                 manufacturerId: 'Cybeats', 
                                 pkgType: '', 
                                 sbomComponentName: '', 
                                 sbomComponentNamespace: '', 
                                 sbomComponentVersion: '', 
-                                subType: '', 
+                                subType: 'application', 
                                 supplierId: 'Cybeats'
                 }
             }
@@ -246,5 +246,7 @@ pipeline {
                 }
             }
         }
+
+        
     }
 }
