@@ -120,7 +120,7 @@ pipeline {
             }
         }
 
-        stage('Stage 7') {
+        stage('Stage 8') {
             steps {
                 echo 'Whitespace pkgtype'
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
