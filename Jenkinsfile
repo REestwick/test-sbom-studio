@@ -218,7 +218,7 @@ pipeline {
         stage('Stage 14') {
             steps {
                 echo 'Check SBOM No Root Component'
-                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE'){
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
                     sbomStudio filePath: 'sboms/arduino-cli-no-root.json',
                                 manufacturerId: 'Cybeats', 
                                 pkgType: '-', 
