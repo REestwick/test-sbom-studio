@@ -135,6 +135,70 @@ pipeline {
                 }
             }
         }
+
+        stage('Stage 9') {
+            steps {
+                echo 'Whitespace sbomComponentName'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                    sbomStudio filePath: 'sboms/arduino-cli.json',
+                                manufacturerId: 'Cybeats', 
+                                pkgType: '', 
+                                sbomComponentName: '    ', 
+                                sbomComponentNamespace: '', 
+                                sbomComponentVersion: '', 
+                                subType: 'application', 
+                                supplierId: 'Cybeats'
+                }
+            }
+        }
+
+        stage('Stage 10') {
+            steps {
+                echo 'Whitespace sbomComponentNamespace'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                    sbomStudio filePath: 'sboms/arduino-cli.json',
+                                manufacturerId: 'Cybeats', 
+                                pkgType: '', 
+                                sbomComponentName: '', 
+                                sbomComponentNamespace: '    ', 
+                                sbomComponentVersion: '', 
+                                subType: 'application', 
+                                supplierId: 'Cybeats'
+                }
+            }
+        }
+
+        stage('Stage 11') {
+            steps {
+                echo 'Whitespace sbomComponentVersion'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                    sbomStudio filePath: 'sboms/arduino-cli.json',
+                                manufacturerId: 'Cybeats', 
+                                pkgType: '   ', 
+                                sbomComponentName: '', 
+                                sbomComponentNamespace: '', 
+                                sbomComponentVersion: '    ', 
+                                subType: 'application', 
+                                supplierId: 'Cybeats'
+                }
+            }
+        }
+
+        stage('Stage 12') {
+            steps {
+                echo 'Blank subType'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                    sbomStudio filePath: 'sboms/arduino-cli.json',
+                                manufacturerId: 'Cybeats', 
+                                pkgType: '', 
+                                sbomComponentName: '', 
+                                sbomComponentNamespace: '', 
+                                sbomComponentVersion: '', 
+                                subType: '', 
+                                supplierId: 'Cybeats'
+                }
+            }
+        }
     }
 
 }
