@@ -4,7 +4,6 @@ pipeline {
     parameters { 
         booleanParam(name: 'SBOM_STUDIO', defaultValue: true, description: 'Enable Cybeats SBOM Studio')
     }
-
     agent any
     stages {
         stage('Stage 0') {
@@ -199,6 +198,37 @@ pipeline {
                 }
             }
         }
-    }
 
+        stage('Stage 13') {
+            steps {
+                echo ''
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                    sbomStudio filePath: 'sboms/arduino-cli.json',
+                                manufacturerId: 'Cybeats', 
+                                pkgType: '', 
+                                sbomComponentName: '', 
+                                sbomComponentNamespace: '', 
+                                sbomComponentVersion: '', 
+                                subType: '', 
+                                supplierId: 'Cybeats'
+                }
+            }
+        }
+
+        stage('Stage 1') {
+            steps {
+                echo 'Check SBOM No Root Component'
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+                    sbomStudio filePath: 'sboms/arduino-cli-no-root.json',
+                                manufacturerId: 'Cybeats', 
+                                pkgType: '-', 
+                                sbomComponentName: '', 
+                                sbomComponentNamespace: '', 
+                                sbomComponentVersion: '', 
+                                subType: 'application', 
+                                supplierId: 'Cybeats'
+                }
+            }
+        }
+    }
 }
