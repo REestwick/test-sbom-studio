@@ -25,7 +25,9 @@ pipeline {
                                 sbomComponentNamespace: '', 
                                 sbomComponentVersion: '', 
                                 subType: 'application', 
-                                supplierId: 'Cybeats'
+                                supplierId: 'Cybeats',
+                                sbomAutocorrection: false,
+                                sbomLicenseCorrection: true
                 }
             }
         }
