@@ -32,23 +32,23 @@ pipeline {
             }
         }
 
-        stage('Stage 2') {
-            steps {
-                echo 'Check General Functionality'
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
-                    sbomStudio filePath: 'sboms/arduino-cli.json',
-                                manufacturerId: 'Cybeats', 
-                                pkgType: '-', 
-                                sbomComponentName: '', 
-                                sbomComponentNamespace: '', 
-                                sbomComponentVersion: '', 
-                                subType: 'application', 
-                                supplierId: 'Cybeats',
-                                sbomAutocorrection: '-',
-                                sbomLicenseCorrection: '-'
-                }
-            }
-        }
+        // stage('Stage 2') {
+        //     steps {
+        //         echo 'Check General Functionality'
+        //         catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
+        //             sbomStudio filePath: 'sboms/arduino-cli.json',
+        //                         manufacturerId: 'Cybeats', 
+        //                         pkgType: '-', 
+        //                         sbomComponentName: '', 
+        //                         sbomComponentNamespace: '', 
+        //                         sbomComponentVersion: '', 
+        //                         subType: 'application', 
+        //                         supplierId: 'Cybeats',
+        //                         sbomAutocorrection: '-',
+        //                         sbomLicenseCorrection: '-'
+        //         }
+        //     }
+        // }
 
         // stage('Stage 2') {
         //     steps {
